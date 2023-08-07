@@ -93,6 +93,7 @@ This concept, called a [Mixin](http://alisoftware.github.io/swift/protocol/2015/
 
 **Table of Contents**
 
+* [Prepare project to load resources](#Prepare-project-to-load-resources)
 * [Type-safe cells](#type-safe-uitableviewcell--uicollectionviewcell)
 * [Type-safe XIB-based reusable views](#type-safe-xib-based-reusable-views)
 * [Type-safe ViewControllers from Storyboards](#type-safe-viewcontrollers-from-storyboards)
@@ -104,7 +105,29 @@ This concept, called a [Mixin](http://alisoftware.github.io/swift/protocol/2015/
 
 ---
 
+# Prepare project to load resources
 
+## 1. Provide an implementation for `WithBundle` in each module
+
+In a module when using Swift Package Manager:
+
+```swift
+extension WithBundle {
+    public static var bundle: Bundle {
+        .module
+    }
+}
+```
+
+In the main project:
+
+```swift
+extension WithBundle {
+    public static var bundle: Bundle {
+        .main
+    }
+}
+```
 
 # Type-safe `UITableViewCell` / `UICollectionViewCell`
 

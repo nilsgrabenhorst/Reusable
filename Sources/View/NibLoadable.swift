@@ -11,12 +11,16 @@ import UIKit
 
 // MARK: Protocol Definition
 
+public protocol WithBundle {
+    static var bundle: Bundle { get }
+}
+
 /// Make your UIView subclasses conform to this protocol when:
 ///  * they *are* NIB-based, and
 ///  * this class is used as the XIB's root view
 ///
 /// to be able to instantiate them from the NIB in a type-safe manner
-public protocol NibLoadable: AnyObject {
+public protocol NibLoadable: AnyObject, WithBundle {
   /// The nib file to use to load a new instance of the View designed in a XIB
   static var nib: UINib { get }
 }
@@ -27,7 +31,7 @@ public extension NibLoadable {
   /// By default, use the nib which have the same name as the name of the class,
   /// and located in the bundle of that class
   static var nib: UINib {
-    return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+    return UINib(nibName: String(describing: self), bundle: bundle)
   }
 }
 
